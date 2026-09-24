@@ -53,6 +53,8 @@ export default function AboutPage() {
               <li>Markdown 目录（TOC）</li>
               <li>代码块样式 Tailwind 迁移</li>
               <li>粒子头像图片数据迁移（生成 particlesData）</li>
+              <li>后台管理增删改（参考 v7/ 移植）</li>
+              <li>后台管理数据安全（前后端校验、ENOENT 容错、数据格式统一）</li>
             </ul>
           </li>
           <li>

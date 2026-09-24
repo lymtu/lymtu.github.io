@@ -82,7 +82,7 @@ export const updateArticle = async (mdId: string, article: FullArticle) => {
       updatedAt: Date.now(),
     };
 
-    await updateYaml(Yaml.stringify(articles));
+    await updateYaml(Yaml.stringify(articles, null, 2));
     await updateMd(mdId, content);
     return true;
   } catch (error) {
@@ -93,7 +93,7 @@ export const updateArticle = async (mdId: string, article: FullArticle) => {
 
 export const createArticle = async (article: FullArticle) => {
   try {
-    const newId = (Number(articles[0]?.id || "0") + 1).toString(36);
+    const newId = String(Number(articles[0]?.id || "0") + 1).padStart(6, "0");
     articles.unshift({
       id: newId,
       title: article.title,
@@ -107,7 +107,7 @@ export const createArticle = async (article: FullArticle) => {
       cache[id] = index;
     });
 
-    await updateYaml(Yaml.stringify(articles));
+    await updateYaml(Yaml.stringify(articles, null, 2));
     await updateMd(newId, article.content);
     return true;
   } catch (error) {
@@ -130,8 +130,14 @@ export const deleteArticle = async (mdId: string) => {
       cache[id] = index;
     });
 
-    await updateYaml(Yaml.stringify(articles));
-    await deleteMd(mdId);
+    await updateYaml(Yaml.stringify(articles, null, 2));
+    try {
+      await deleteMd(mdId);
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== "ENOENT") {
+        throw error;
+      }
+    }
 
     return true;
   } catch (error) {

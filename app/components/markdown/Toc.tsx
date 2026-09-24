@@ -90,7 +90,7 @@ export function MarkdownToc({ content }: MarkdownTocProps) {
   return (
     <>
       {show ? (
-        <div className="fixed z-10 xl:flex xl:sticky xl:flex w-[300px] xl:w-[320px] 2xl:w-[400px] h-[calc(100vh-var(--header-height)-10px)] bg-white/50 dark:bg-black/30 backdrop-blur-lg xl:bg-transparent xl:backdrop-blur-none overflow-hidden flex-col top-[calc(5px+var(--header-height))] right-0 transition-[top] duration-300">
+        <div className="fixed z-10 xl:flex xl:sticky w-[300px] xl:w-[320px] 2xl:w-[400px] h-[calc(100vh-var(--header-height)-10px)] bg-white/50 dark:bg-black/30 backdrop-blur-lg xl:bg-transparent xl:backdrop-blur-none overflow-hidden flex-col top-[calc(5px+var(--header-height))] right-0 transition-[top] duration-300">
           <div className="shrink-0 basis-8 mt-2 flex items-center justify-between py-1 h-8 mx-4 border-b border-black/10 dark:border-white/20">
             <h3 className="font-bold text-xl">目录</h3>
             <button

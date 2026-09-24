@@ -49,7 +49,7 @@ export default function MarkdownViewer({
 
   return (
     <div
-      className={`md-body max-w-(--md-max-width) py-8 pb-16 text-[1.25rem] leading-[1.8] text-(--md-text) antialiased [&>:first-child]:mt-0.5 ${className}`}
+      className={`md-body max-w-(--md-max-width) py-8 pb-16 text-[1.25rem] leading-[1.8] text-(--md-text) antialiased *:first:mt-0.5 ${className}`}
       style={style}
     >
       <ReactMarkdown
@@ -99,7 +99,7 @@ export default function MarkdownViewer({
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-(--md-link) no-underline [border-bottom:1px_solid_transparent] hover:[border-bottom-color:var(--md-accent-hover)] hover:text-(--md-accent-hover)"
+                className="text-(--md-link) no-underline [border-bottom:1px_solid_transparent] hover:border-b-(--md-accent-hover) hover:text-(--md-accent-hover)"
                 {...props}
               >
                 {children}
@@ -139,7 +139,7 @@ export default function MarkdownViewer({
 
             return (
               <code
-                className="font-(--md-font-mono) text-[0.84em] px-[0.45em] py-[0.15em] rounded bg-(--md-inline-code-bg) text-(--md-inline-code-text) break-words"
+                className="font-(--md-font-mono) text-[0.84em] px-[0.45em] py-[0.15em] rounded bg-(--md-inline-code-bg) text-(--md-inline-code-text) wrap-break-word"
                 {...props}
               >
                 {children}
@@ -156,7 +156,7 @@ export default function MarkdownViewer({
           blockquote({ node, children, ...props }) {
             return (
               <blockquote
-                className="my-[1.5em] px-[1.2em] py-[0.8em] border-l-4 border-(--md-blockquote-border) bg-(--md-blockquote-bg) rounded-r-lg text-(--md-text) [&>p:last]:mb-0 [&>blockquote]:my-[0.8em]"
+                className="my-[1.5em] px-[1.2em] py-[0.8em] border-l-4 border-(--md-blockquote-border) bg-(--md-blockquote-bg) rounded-r-lg text-(--md-text) [&>p:last-child]:mb-0 [&>blockquote]:my-[0.8em]"
                 {...props}
               >
                 {children}

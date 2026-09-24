@@ -18,7 +18,7 @@ export default function Product({ loaderData }: Route.ComponentProps) {
   const { title, createdAt, updatedAt, content } = loaderData;
   return (
     <div className="flex-1 min-w-0 flex gap-8 transition-[width] duration-300">
-      <div className="flex-1 min-w-0 mt-10 w-full px-[4vw] mx-auto xl:px-[10vw]">
+      <div className="flex-1 min-w-0 mt-10 px-[4vw]">
         <h1 className="text-4xl font-bold mb-4">{title}</h1>
         <div className="flex items-center gap-4 justify-end">
           <span>PUT：{timeTransformer(createdAt)}</span>

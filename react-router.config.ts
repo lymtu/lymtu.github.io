@@ -11,6 +11,7 @@ export default {
     return [
       "/",
       "/about",
+      "/articles",
       ...articles.map((article) => `/articles/${article.id}`),
     ];
   },

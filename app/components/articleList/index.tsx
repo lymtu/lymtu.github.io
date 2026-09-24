@@ -20,8 +20,11 @@ export const AtricleList = function ({
               to={`/articles/${article.id}`}
               className={({ isActive }) =>
                 "shadow-black/20 dark:shadow-white/50 py-1 px-2 transition-shadow rounded cursor-pointer " +
-                (isActive ? "bg-white/20 shadow" : "hover:bg-white/20 hover:shadow")
+                (isActive
+                  ? "bg-white/20 shadow"
+                  : "hover:bg-white/20 hover:shadow")
               }
+              viewTransition
             >
               <div className="flex items-center gap-2 justify-between">
                 <div className="truncate font-bold" title={article.title}>
@@ -49,4 +52,4 @@ export const AtricleList = function ({
       )}
     </div>
   );
-}
+};

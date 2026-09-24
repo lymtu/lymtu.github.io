@@ -125,14 +125,14 @@ export default function CodeBlock({
               {filename}
             </span>
           ) : (
-            <span className="font-(--md-font-mono) text-xs font-semibold uppercase tracking-[0.05em] text-(--md-code-header-text)">
+            <span className="font-(--md-font-mono) text-xs uppercase tracking-wider text-(--md-code-header-text)">
               {label}
             </span>
           )}
         </div>
         <button
           className={
-            "flex items-center gap-[0.35em] px-[0.65em] py-[0.3em] border rounded-[5px] bg-transparent font-(--md-font-mono) text-[0.7rem] cursor-pointer whitespace-nowrap flex-shrink-0 transition-all duration-200 " +
+            "flex items-center gap-[0.35em] px-[0.65em] py-[0.3em] border rounded-[5px] bg-transparent font-(--md-font-mono) text-[0.7rem] cursor-pointer whitespace-nowrap shrink-0 transition-all duration-200 " +
             (copied
               ? "text-green-500 border-green-500"
               : "border-(--md-border) text-(--md-code-header-text) hover:bg-(--md-code-copy-hover) hover:text-(--md-text) hover:border-(--md-text-muted)")
