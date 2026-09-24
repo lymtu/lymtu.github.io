@@ -1,5 +1,3 @@
-"use client";
-
 import { useState, useCallback, useEffect } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark, oneLight } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -114,19 +112,31 @@ export default function CodeBlock({
   const lineCount = children.trim().split("\n").length;
 
   return (
-    <div className={`cb cb--${theme}`}>
+    <div className="my-[1.5em] rounded-lg overflow-hidden border border-(--md-border)">
       {/* ---- 眉头 ---- */}
-      <div className="cb__header">
-        <div className="cb__meta">
-          <span className="cb__dot" style={{ background: dotColor }} />
+      <div className="flex items-center justify-between px-4 py-[0.55em] bg-(--md-code-header-bg) border-b border-(--md-border)">
+        <div className="flex items-center gap-2 min-w-0">
+          <span
+            className="size-2 rounded-full shrink-0 shadow-[0_0_0_2px_var(--md-code-header-bg)]"
+            style={{ background: dotColor }}
+          />
           {filename ? (
-            <span className="cb__file">{filename}</span>
+            <span className="font-(--md-font-mono) text-[0.72rem] text-(--md-text-muted) truncate">
+              {filename}
+            </span>
           ) : (
-            <span className="cb__lang">{label}</span>
+            <span className="font-(--md-font-mono) text-xs font-semibold uppercase tracking-[0.05em] text-(--md-code-header-text)">
+              {label}
+            </span>
           )}
         </div>
         <button
-          className={`cb__copy ${copied ? "cb__copy--done" : ""}`}
+          className={
+            "flex items-center gap-[0.35em] px-[0.65em] py-[0.3em] border rounded-[5px] bg-transparent font-(--md-font-mono) text-[0.7rem] cursor-pointer whitespace-nowrap flex-shrink-0 transition-all duration-200 " +
+            (copied
+              ? "text-green-500 border-green-500"
+              : "border-(--md-border) text-(--md-code-header-text) hover:bg-(--md-code-copy-hover) hover:text-(--md-text) hover:border-(--md-text-muted)")
+          }
           onClick={handleCopy}
           aria-label="Copy code"
         >
@@ -143,7 +153,7 @@ export default function CodeBlock({
       </div>
 
       {/* ---- 代码 ---- */}
-      <div className="cb__body">
+      <div className="bg-(--md-code-body-bg) overflow-x-auto">
         <SyntaxHighlighter
           language={language || "text"}
           style={syntaxTheme}

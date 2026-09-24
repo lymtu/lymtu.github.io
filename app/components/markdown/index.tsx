@@ -6,8 +6,6 @@ import remarkCodeMeta from "./remark-code-meta";
 import ReactMarkdown from "react-markdown";
 import CodeBlock from "./CodeBlock";
 
-import "./style.css";
-
 export type ThemeMode = "light" | "dark";
 
 interface MarkdownViewerProps {
@@ -18,6 +16,30 @@ interface MarkdownViewerProps {
   style?: React.CSSProperties;
 }
 
+const HEADING_COMMON =
+  "text-(--md-heading) font-bold leading-[1.3] mt-[2.4em] mb-[0.6em] scroll-mt-[calc(var(--header-height)+16px)]";
+
+const HEADING_CLASSES: Record<number, string> = {
+  1: `${HEADING_COMMON} text-[2rem] tracking-[-0.02em] border-b-2 border-(--md-border) pb-[0.3em]`,
+  2: `${HEADING_COMMON} text-[1.55rem] tracking-[-0.01em]`,
+  3: `${HEADING_COMMON} text-[1.25rem]`,
+  4: `${HEADING_COMMON} text-[1.1rem]`,
+  5: `${HEADING_COMMON} text-[0.95rem] uppercase tracking-[0.06em]`,
+  6: `${HEADING_COMMON} text-[0.9rem] text-(--md-text-muted)`,
+};
+
+function headingComponent(level: 1 | 2 | 3 | 4 | 5 | 6) {
+  const Tag = `h${level}` as React.ElementType;
+  return function Heading(props: React.ComponentProps<typeof Tag>) {
+    const { node: _node, className, children, ...rest } = props;
+    return (
+      <Tag className={`${HEADING_CLASSES[level]} ${className ?? ""}`} {...rest}>
+        {children}
+      </Tag>
+    );
+  };
+}
+
 export default function MarkdownViewer({
   content,
   className = "",
@@ -26,12 +48,66 @@ export default function MarkdownViewer({
   const { currentTheme: theme } = useTheme();
 
   return (
-    <div className={`md-body ${className}`} style={style}>
+    <div
+      className={`md-body max-w-(--md-max-width) py-8 pb-16 text-[1.25rem] leading-[1.8] text-(--md-text) antialiased [&>:first-child]:mt-0.5 ${className}`}
+      style={style}
+    >
       <ReactMarkdown
         remarkPlugins={[remarkGfm, remarkCodeMeta]}
         rehypePlugins={[rehypeSlug]}
         components={{
-          /* ---------- 代码块 / 行内代码 ---------- */
+          h1: headingComponent(1),
+          h2: headingComponent(2),
+          h3: headingComponent(3),
+          h4: headingComponent(4),
+          h5: headingComponent(5),
+          h6: headingComponent(6),
+
+          /* ---------- 段落 & 文本 ---------- */
+          p({ node, children, ...props }) {
+            return (
+              <p className="mb-[1.25em] indent-2" {...props}>
+                {children}
+              </p>
+            );
+          },
+
+          strong({ node, children, ...props }) {
+            return (
+              <strong className="font-bold text-(--md-heading)" {...props}>
+                {children}
+              </strong>
+            );
+          },
+
+          em({ node, children, ...props }) {
+            return <em className="italic" {...props}>{children}</em>;
+          },
+
+          del({ node, children, ...props }) {
+            return (
+              <del className="text-(--md-text-muted) line-through" {...props}>
+                {children}
+              </del>
+            );
+          },
+
+          /* ---------- 链接 ---------- */
+          a({ node, href, children, ...props }) {
+            return (
+              <a
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-(--md-link) no-underline [border-bottom:1px_solid_transparent] hover:[border-bottom-color:var(--md-accent-hover)] hover:text-(--md-accent-hover)"
+                {...props}
+              >
+                {children}
+              </a>
+            );
+          },
+
+          /* ---------- 行内代码 ---------- */
           code({ node, className, children, ...props }) {
             const codeStr = String(children).replace(/\n$/, "");
             const match = /language-(\w+)/.exec(className || "");
@@ -62,7 +138,10 @@ export default function MarkdownViewer({
             }
 
             return (
-              <code className="md-inline-code" {...props}>
+              <code
+                className="font-(--md-font-mono) text-[0.84em] px-[0.45em] py-[0.15em] rounded bg-(--md-inline-code-bg) text-(--md-inline-code-text) break-words"
+                {...props}
+              >
                 {children}
               </code>
             );
@@ -73,85 +152,137 @@ export default function MarkdownViewer({
             return <>{children}</>;
           },
 
-          /* ---------- 链接新窗口打开 ---------- */
-          a({ href, children, ...props }) {
+          /* ---------- 引用块 ---------- */
+          blockquote({ node, children, ...props }) {
             return (
-              <a
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
+              <blockquote
+                className="my-[1.5em] px-[1.2em] py-[0.8em] border-l-4 border-(--md-blockquote-border) bg-(--md-blockquote-bg) rounded-r-lg text-(--md-text) [&>p:last]:mb-0 [&>blockquote]:my-[0.8em]"
                 {...props}
               >
                 {children}
-              </a>
+              </blockquote>
             );
+          },
+
+          /* ---------- 列表 ---------- */
+          ul({ node, children, ...props }) {
+            return (
+              <ul className="pl-[1.6em] mb-[1.25em]" {...props}>
+                {children}
+              </ul>
+            );
+          },
+
+          ol({ node, children, ...props }) {
+            return (
+              <ol className="pl-[1.6em] mb-[1.25em]" {...props}>
+                {children}
+              </ol>
+            );
+          },
+
+          li({ node, children, ...props }) {
+            return (
+              <li
+                className="mb-[0.35em] [&>ul]:mt-[0.35em] [&>ol]:mt-[0.35em] [&>ul]:mb-0 [&>ol]:mb-0"
+                {...props}
+              >
+                {children}
+              </li>
+            );
+          },
+
+          /* ---------- GFM 任务列表 ---------- */
+          input({ node, type, ...props }) {
+            if (type === "checkbox") {
+              return (
+                <input
+                  type="checkbox"
+                  className="mr-[0.45em] accent-(--md-accent) scale-110"
+                  {...props}
+                />
+              );
+            }
+            return <input type={type} {...props} />;
+          },
+
+          /* ---------- 分割线 ---------- */
+          hr() {
+            return <hr className="border-none h-px bg-(--md-hr) my-[2.5em]" />;
           },
 
           /* ---------- 图片 ---------- */
           img({ src, alt }) {
             return (
-              <figure className="md-figure">
+              <figure className="my-[1.8em] text-center">
                 <img
                   src={src}
-                  className="w-62.5 md:w-3/4 rounded object-contain"
+                  className="max-w-full h-auto w-62.5 md:w-3/4 rounded object-contain shadow-[0_4px_20px_var(--md-img-shadow)]"
                   loading="lazy"
                 />
-                {alt && <figcaption>{alt}</figcaption>}
+                {alt && (
+                  <figcaption className="mt-[0.6em] text-[0.82rem] text-(--md-text-muted) italic">
+                    {alt}
+                  </figcaption>
+                )}
               </figure>
             );
           },
 
           /* ---------- 表格 ---------- */
-          table({ children, ...props }) {
+          table({ node, children, ...props }) {
             return (
-              <div className="md-table-wrap">
-                <table {...props}>{children}</table>
+              <div className="overflow-x-auto my-[1.5em] rounded-lg border border-(--md-border)">
+                <table
+                  className="w-full border-collapse text-[0.9rem]"
+                  {...props}
+                >
+                  {children}
+                </table>
               </div>
             );
           },
 
-          div({ className, ...props }) {
-            if (className === "md-meta-card") {
-              const { title, date, author, tags } = props as Record<
-                string,
-                string
-              >;
-              if (!title) return null;
-              return (
-                <header
-                  className="mb-8 pb-6 border-b"
-                  style={{ borderColor: "var(--md-border)" }}
-                >
-                  <h1
-                    className="text-3xl font-bold mb-2"
-                    style={{ color: "var(--md-heading)" }}
-                  >
-                    {title}
-                  </h1>
-                  <div
-                    className="flex items-center gap-4 text-sm"
-                    style={{ color: "var(--md-text-muted)" }}
-                  >
-                    {date && <span>{date}</span>}
-                    {author && <span>{author}</span>}
-                    {tags && (
-                      <div className="flex gap-2">
-                        {tags.split(",").map((t) => (
-                          <span
-                            key={t}
-                            className="px-2 py-0.5 rounded text-xs"
-                            style={{ background: "var(--md-bg-tertiary)" }}
-                          >
-                            {t.trim()}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </header>
-              );
-            }
-            return <div {...props}>{props.children}</div>;
+          th({ node, children, ...props }) {
+            return (
+              <th
+                className="bg-(--md-table-header-bg) font-semibold text-left whitespace-nowrap text-(--md-heading) px-4 py-[0.7em] border-b border-(--md-border)"
+                {...props}
+              >
+                {children}
+              </th>
+            );
+          },
+
+          td({ node, children, ...props }) {
+            return (
+              <td
+                className="px-4 py-[0.7em] border-b border-(--md-border)"
+                {...props}
+              >
+                {children}
+              </td>
+            );
+          },
+
+          tr({ node, children, ...props }) {
+            return (
+              <tr
+                className="even:bg-(--md-table-stripe) last:[&>td]:border-b-0"
+                {...props}
+              >
+                {children}
+              </tr>
+            );
+          },
+
+          /* ---------- 脚注引用 ---------- */
+          sup({ node, children, ...props }) {
+            return (
+              <sup className="[&>a]:font-semibold [&>a]:text-[0.75em]" {...props}>
+                {children}
+              </sup>
+            );
           },
         }}
       >

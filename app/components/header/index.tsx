@@ -1,5 +1,3 @@
-"use client";
-
 import { Link, useLocation } from "react-router";
 import { useEffect, useMemo, useRef } from "react";
 import { ThemeToggler } from "../themeToggler";
@@ -9,9 +7,14 @@ export function Header() {
   const headerDomRef = useRef<HTMLElement>(null);
   const lastScrollY = useRef<number>(0);
 
+  const rafIdRef = useRef<number>(0);
+
   useEffect(() => {
     const handleScroll = () => {
-      requestAnimationFrame(() => {
+      if (rafIdRef.current) {
+        cancelAnimationFrame(rafIdRef.current);
+      }
+      rafIdRef.current = requestAnimationFrame(() => {
         if (!headerDomRef.current) {
           return;
         }
@@ -48,6 +51,10 @@ export function Header() {
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
+
+      if (rafIdRef.current) {
+        cancelAnimationFrame(rafIdRef.current);
+      }
     };
   }, []);
 

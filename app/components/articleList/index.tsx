@@ -1,5 +1,3 @@
-"use client";
-
 import { type Article } from "~/lib/types/articles";
 import { timeTransformer } from "~/lib/utils/timeTransformer";
 

@@ -45,6 +45,23 @@ export default function AboutPage() {
           基于 React Router v8 Framework Mode 构建，使用 TypeScript、react-markdown、
           Tailwind CSS等。
         </p>
+        <ul className="mt-4 list-disc pl-5 leading-relaxed">
+          <li>作者/维护：Lymtu</li>
+          <li>
+            贡献：big-pickle
+            <ul className="mt-1 list-disc pl-5 space-y-1">
+              <li>Markdown 目录（TOC）</li>
+              <li>代码块样式 Tailwind 迁移</li>
+              <li>粒子头像图片数据迁移（生成 particlesData）</li>
+            </ul>
+          </li>
+          <li>
+            贡献：mimo
+            <ul className="mt-1 list-disc pl-5 space-y-1">
+              <li>编写 Markdown 排版样式</li>
+            </ul>
+          </li>
+        </ul>
       </section>
 
       <section className="py-8 border-t border-gray-500/20">

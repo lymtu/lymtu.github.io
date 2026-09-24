@@ -35,7 +35,7 @@ export default function ArticlesLayout({ loaderData }: Route.ComponentProps) {
 }
 
 export function ListAside({ articles }: { articles: Article[] }) {
-  const [showAside, setShowAside] = useState<boolean>(true);
+  const [showAside, setShowAside] = useState<boolean>(false);
   const [search, setSearch] = useState<string>("");
   const initRef = useRef<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -150,7 +150,7 @@ export function ListAside({ articles }: { articles: Article[] }) {
           className={
             isChildPage
               ? (showAside ? "fixed z-10 md:flex md:sticky" : "hidden") +
-                " md:flex w-[300px] xl:w-[320px] 2xl:w-[400px] h-[calc(100vh-var(--header-height)-10px)] bg-white/50 backdrop-blur-lg md:bg-transparent md:backdrop-blur-none overflow-hidden flex-col top-[calc(5px+var(--header-height))] left-0 transition-[top] duration-300"
+                " md:flex w-[300px] xl:w-[320px] 2xl:w-[400px] h-[calc(100vh-var(--header-height)-10px)] bg-white/50 dark:bg-black/30 backdrop-blur-lg md:bg-transparent md:backdrop-blur-none overflow-hidden flex-col top-[calc(5px+var(--header-height))] left-0 transition-[top] duration-300"
               : "w-5/6 mx-auto md:w-lg lg:w-2xl"
           }
         >

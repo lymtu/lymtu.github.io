@@ -16,6 +16,61 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* ========== Markdown 主题色板 ========== */
+:root {
+  --md-font-heading: "Playfair Display", "Noto Serif SC", serif;
+  --md-font-mono: "JetBrains Mono", "Fira Code", "Menlo", monospace;
+  --md-max-width: 740px;
+  --md-radius: 8px;
+  --md-transition: 0.25s ease;
+
+  --md-bg-secondary: #f6f6f9;
+  --md-bg-tertiary: #eeeff3;
+  --md-text: #24242e;
+  --md-text-muted: #6e6e82;
+  --md-heading: #12121a;
+  --md-border: #d8d8e4;
+  --md-accent: #4466dd;
+  --md-accent-hover: #3355cc;
+  --md-link: #3b5bdb;
+  --md-inline-code-bg: #f0f0f5;
+  --md-inline-code-text: #d6336c;
+  --md-blockquote-border: #4466dd;
+  --md-blockquote-bg: #f4f6ff;
+  --md-table-stripe: #f8f8fb;
+  --md-table-header-bg: #eeeff5;
+  --md-code-header-bg: #f0f0f4;
+  --md-code-header-text: #555;
+  --md-code-body-bg: #fafafc;
+  --md-code-copy-hover: #e4e4ec;
+  --md-hr: #d0d0dc;
+  --md-img-shadow: rgba(0, 0, 0, 0.08);
+}
+
+.dark {
+  --md-bg-secondary: #16161e;
+  --md-bg-tertiary: #1e1e28;
+  --md-text: #d4d4dc;
+  --md-text-muted: #70708a;
+  --md-heading: #f0f0f6;
+  --md-border: #2a2a3a;
+  --md-accent: #6c8cff;
+  --md-accent-hover: #8aa4ff;
+  --md-link: #6c8cff;
+  --md-inline-code-bg: #1c1c28;
+  --md-inline-code-text: #ff6b9d;
+  --md-blockquote-border: #6c8cff;
+  --md-blockquote-bg: #12121c;
+  --md-table-stripe: #14141e;
+  --md-table-header-bg: #1a1a26;
+  --md-code-header-bg: #16161f;
+  --md-code-header-text: #888;
+  --md-code-body-bg: #111118;
+  --md-code-copy-hover: #2a2a3a;
+  --md-hr: #2a2a3a;
+  --md-img-shadow: rgba(0, 0, 0, 0.4);
+}
+
 /* ========== 基础：color-scheme 控制 Safari 原生滚动条 ========== */
 html.dark {
   color-scheme: dark;
