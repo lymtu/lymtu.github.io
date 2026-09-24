@@ -1,15 +1,15 @@
 import { useEffect, useRef } from "react";
 
 const GISCUS = {
-  "data-repo": "lymtu/ai-blog-ssg",
-  "data-repo-id": "R_kgDOTE6Mdw",
+  "data-repo": "lymtu/lymtu.github.io",
+  "data-repo-id": "R_kgDOUhL6Bg",
   "data-category": "Announcements",
-  "data-category-id": "DIC_kwDOTE6Md84C_3dM",
+  "data-category-id": "DIC_kwDOUhL6Bs4DGTsA",
   "data-mapping": "pathname",
   "data-strict": "0",
   "data-reactions-enabled": "1",
   "data-emit-metadata": "0",
-  "data-input-position": "top",
+  "data-input-position": "bottom",
   "data-lang": "zh-CN",
 };
 
