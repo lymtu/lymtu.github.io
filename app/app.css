@@ -1,0 +1,106 @@
+@import url("./assets/fonts/Aa今日花晴/result.css");
+
+@import "tailwindcss";
+
+:root {
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
+    "PingFang SC", "Helvetica Neue", Helvetica, Arial, "Microsoft YaHei",
+    sans-serif;
+  --font-hand: "Aa今日花晴 春懒猫困", var(--font-sans);
+}
+
+* {
+  font-family: var(--font-hand);
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ========== 基础：color-scheme 控制 Safari 原生滚动条 ========== */
+html.dark {
+  color-scheme: dark;
+}
+
+/* 关键：让所有子元素也继承 dark，否则内部滚动条不生效 */
+html.dark * {
+  color-scheme: dark;
+}
+
+html:not(.dark) {
+  color-scheme: light;
+}
+
+html:not(.dark) * {
+  color-scheme: light;
+}
+
+/* ========== Chrome / Edge：::-webkit-scrollbar ========== */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+html:not(.dark) ::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+}
+
+html.dark ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(128, 128, 128, 0.4);
+}
+
+/* ========== 标准属性（新版 Safari 17.6+ / Chrome 121+） ========== */
+html:not(.dark) {
+  scrollbar-color: rgba(0, 0, 0, 0.15) transparent;
+  scrollbar-width: thin;
+}
+
+html.dark {
+  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+  scrollbar-width: thin;
+}
+
+svg {
+  color: inherit;
+}
+
+svg * {
+  stroke: currentColor;
+}
+
+svg *.fill {
+  fill: currentColor;
+}
+
+body {
+  --header-height: 60px;
+}
+
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(sidebar),
+::view-transition-new(sidebar) {
+  animation-duration: 0.15s;
+}
+
+/* Giscus 透明主题：与父页面 color-scheme 保持一致，
+   避免 Chrome 在 color-scheme 不一致时给 iframe 强制铺不透明白色画布 */
+.giscus iframe.giscus-frame {
+  color-scheme: light dark;
+  background-color: transparent;
+}
