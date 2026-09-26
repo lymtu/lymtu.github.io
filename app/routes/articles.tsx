@@ -190,7 +190,7 @@ export function ListAside({ articles }: { articles: Article[] }) {
                   type="text"
                   name="title"
                   className={
-                    "w-75 p-1.5 rounded-xl border border-black/10 dark:border-white/10 bg-gray-50 dark:bg-white/10 " +
+                    "w-40 md:w-75 p-1.5 rounded-xl border border-black/10 dark:border-white/10 bg-gray-50 dark:bg-white/10 " +
                     (isChildPage ? "my-1" : "my-4")
                   }
                   placeholder="查询标题..."
