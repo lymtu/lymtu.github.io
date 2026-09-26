@@ -10,6 +10,19 @@ export async function loader({ params }: Route.LoaderArgs) {
   return article;
 }
 
+export function meta({ loaderData }: Route.MetaArgs) {
+  const article = loaderData;
+  return [
+    {
+      title: article?.title ? `${article.title} - Lymtu 的个人博客` : "文章",
+    },
+    {
+      name: "description",
+      content: article?.description ?? "Lymtu 的个人博客文章。",
+    },
+  ];
+}
+
 export default function Product({ loaderData }: Route.ComponentProps) {
   if (!loaderData) {
     throw new Response("Not Found", { status: 404 });

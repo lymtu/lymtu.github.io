@@ -16,6 +16,13 @@ import { timeTransformer } from "~/lib/utils/timeTransformer";
 
 const STORAGE_KEY = "search";
 
+export function meta() {
+  return [
+    { title: "归档" },
+    { name: "description", content: "Lymtu 的个人博客全部文章列表。" },
+  ];
+}
+
 export async function loader() {
   const articleList = await getArticles();
   return {

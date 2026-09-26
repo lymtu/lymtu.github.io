@@ -7,6 +7,13 @@ import { Typewriter } from "~/components/typewriter";
 import type { Route } from "./+types/_index";
 import { getArticles } from "~/lib/utils/data";
 
+export function meta() {
+  return [
+    { title: "Lymtu 的个人博客" },
+    { name: "description", content: "Lymtu 的个人博客，记录、思考与分享。" },
+  ];
+}
+
 export async function loader() {
   const articleList = await getArticles();
   return {

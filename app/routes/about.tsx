@@ -16,7 +16,10 @@ const skillTags = [
 ];
 
 export function meta() {
-  return [{ title: "关于" }];
+  return [
+    { title: "关于" },
+    { name: "description", content: "关于 Lymtu 与这个博客。" },
+  ];
 }
 
 export default function AboutPage() {
