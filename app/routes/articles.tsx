@@ -12,7 +12,6 @@ import { AtricleList } from "~/components/articleList";
 import type { Article } from "~/lib/types/articles";
 import { getArticles } from "~/lib/utils/data";
 import type { Route } from "./+types/articles";
-import { timeTransformer } from "~/lib/utils/timeTransformer";
 
 const STORAGE_KEY = "search";
 
@@ -23,8 +22,8 @@ export function meta() {
   ];
 }
 
-export async function loader() {
-  const articleList = await getArticles();
+export function loader() {
+  const articleList = getArticles();
   return {
     articleList,
   };
@@ -97,7 +96,7 @@ export function ListAside({ articles }: { articles: Article[] }) {
 
     const cache = {} as Record<string, Article[]>;
     for (const article of baseArr) {
-      const yaer = timeTransformer(article.createdAt, "yyyy");
+      const yaer = article.createdAt.split("-")[0];
       const itemCache = cache[yaer] ? cache[yaer] : [];
       itemCache.push(article);
       cache[yaer] = itemCache;

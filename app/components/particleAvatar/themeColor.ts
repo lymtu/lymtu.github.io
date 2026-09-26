@@ -1,6 +1,6 @@
 export function getParticleTintColor(): string {
   return window.matchMedia("(prefers-color-scheme: dark)").matches
-    ? "#323232"
+    ? "#adadad"
     : "#48484a";
 }
 

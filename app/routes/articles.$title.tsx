@@ -1,12 +1,12 @@
 import { getArticle } from "~/lib/utils/data";
-import type { Route } from "./+types/articles.$articleId";
+import type { Route } from "./+types/articles.$title";
 import { timeTransformer } from "~/lib/utils/timeTransformer";
 import MarkdownViewer from "~/components/markdown";
 import { MarkdownToc } from "~/components/markdown/Toc";
 import { Comments } from "~/components/comments";
 
-export async function loader({ params }: Route.LoaderArgs) {
-  const article = await getArticle(params.articleId);
+export function loader({ params }: Route.LoaderArgs) {
+  const article = getArticle(params.title);
   return article;
 }
 
@@ -33,9 +33,9 @@ export default function Product({ loaderData }: Route.ComponentProps) {
     <div className="flex-1 min-w-0 flex gap-8 transition-[width] duration-300">
       <div className="flex-1 min-w-0 mt-10 px-[4vw]">
         <h1 className="text-4xl font-bold mb-4">{title}</h1>
-        <div className="flex items-center gap-4 justify-end">
-          <span>PUT：{timeTransformer(createdAt)}</span>
-          {updatedAt && <span>POST：{timeTransformer(updatedAt)}</span>}
+        <div className="flex flex-col items-end lg:flex-row lg:items-center gap-4 justify-end">
+          <span>PUT：{createdAt}</span>
+          {updatedAt && <span>POST：{updatedAt}</span>}
         </div>
 
         {content && <MarkdownViewer content={content} />}

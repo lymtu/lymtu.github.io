@@ -1,3 +1,9 @@
+title: Agent应用开发·一
+description: 架构介绍
+createdAt: 1788442514347
+updatedAt: 1789785500000
+=== meta ===
+
 ### 技术选型
 
 - [x] [Bun](https://bun.sh/)
@@ -164,7 +170,9 @@ export class Runner {
 
   // 模型输出消息转换处理
   // 并把结果emit分发
-  async #execute(asyncGenerator: AsyncGenerator<AgentResponse, void, unknown>) {}
+  async #execute(
+    asyncGenerator: AsyncGenerator<AgentResponse, void, unknown>,
+  ) {}
 
   get isRunning() {}
 
@@ -193,4 +201,3 @@ export class Agent {
 ---
 
 大部分还是代码或功能罗列，下一篇再讲具体问题吧。
-

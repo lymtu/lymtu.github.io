@@ -60,7 +60,7 @@ export function Header() {
 
   const pathnameArr = useMemo(() => {
     if (pathname === "/") return [];
-    const pathnameArr = pathname.split("/").slice(1);
+    const pathnameArr = decodeURI(pathname).split("/").slice(1);
 
     let base: string = "";
 
@@ -88,7 +88,7 @@ export function Header() {
               <span>/</span>
               <Link
                 to={pathnameItem.path}
-                className="hover:text-blue-500 hover:underline"
+                className="hover:text-blue-500 hover:underline max-w-[5em] xl:max-w-fit truncate"
               >
                 {pathnameItem.name}
               </Link>

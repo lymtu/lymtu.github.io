@@ -40,7 +40,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           }}
         />
       </head>
-      <body className="min-h-full flex flex-col bg-gray-100 dark:bg-gray-950 dark:text-white">
+      <body className="min-h-full flex flex-col bg-gray-100 dark:bg-gray-950 dark:text-gray-300">
         {children}
         <ScrollRestoration />
         <Scripts />

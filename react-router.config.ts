@@ -5,14 +5,14 @@ export default {
   // Config options...
   // Server-side render by default, to enable SPA mode set this to `false`
   ssr: process.env.NODE_ENV === "production" ? false : true,
-  prerender: async () => {
-    const articles = await getArticles();
+  prerender: () => {
+    const articles = getArticles();
 
     return [
       "/",
       "/about",
       "/articles",
-      ...articles.map((article) => `/articles/${article.id}`),
+      ...articles.map((article) => `/articles/${article.title}`),
     ];
   },
 } satisfies Config;

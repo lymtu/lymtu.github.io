@@ -1,11 +1,7 @@
 export type Article = {
-  id: string;
   title: string;
   description: string;
-  createdAt: number;
-  updatedAt: number | null;
-};
-
-export type FullArticle = Article & {
+  createdAt: string;
+  updatedAt: string | null;
   content: string;
 };

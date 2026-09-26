@@ -3,6 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "create-md": "node scripts/create-md.ts",
+    "update-md": "node scripts/update-md.ts",
     "build": "react-router build",
     "dev": "react-router dev",
     "start": "react-router-serve ./build/server/index.js",

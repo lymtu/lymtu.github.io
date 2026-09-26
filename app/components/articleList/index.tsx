@@ -16,8 +16,8 @@ export const AtricleList = function ({
         articles.map((article) => {
           return (
             <NavLink
-              key={article.id}
-              to={`/articles/${article.id}`}
+              key={article.title}
+              to={`/articles/${article.title}`}
               className={({ isActive }) =>
                 "shadow-black/20 dark:shadow-white/50 py-1 px-2 transition-shadow rounded cursor-pointer " +
                 (isActive
@@ -38,10 +38,10 @@ export const AtricleList = function ({
               )}
 
               <div className="text-end text-gray-500 text-xs">
-                {article.updatedAt ? (
-                  <span>POST: {timeTransformer(article.updatedAt)}</span>
+                {article?.updatedAt ? (
+                  <span>POST: {article.updatedAt}</span>
                 ) : (
-                  <span>PUT: {timeTransformer(article.createdAt)}</span>
+                  <span>PUT: {article.createdAt}</span>
                 )}
               </div>
             </NavLink>

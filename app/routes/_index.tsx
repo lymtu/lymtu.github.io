@@ -14,8 +14,8 @@ export function meta() {
   ];
 }
 
-export async function loader() {
-  const articleList = await getArticles();
+export function loader() {
+  const articleList = getArticles();
   return {
     articleList: articleList.slice(0, 10),
     haveMore: articleList.length > 10,
