@@ -39,5 +39,10 @@ export function Avatar() {
     };
   }, []);
 
-  return <canvas ref={canvasRef} className="w-sm 2xl:w-xl" />;
+  return (
+    <canvas
+      ref={canvasRef}
+      className="w-full max-w-72 aspect-square lg:max-w-80 2xl:max-w-96"
+    />
+  );
 }

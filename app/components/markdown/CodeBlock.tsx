@@ -66,6 +66,11 @@ const LANG_COLORS: Record<string, string> = {
   shell: "#4eaa25",
 };
 
+/* ---------- 语言标识：首字母大写 ---------- */
+function toTitleCase(value: string) {
+  return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+}
+
 /* ---------- Props ---------- */
 interface CodeBlockProps {
   language?: string;
@@ -106,7 +111,7 @@ export default function CodeBlock({
   }, [copied]);
 
   const langKey = language.toLowerCase();
-  const label = LANG_LABELS[langKey] || language.toUpperCase() || "TEXT";
+  const label = LANG_LABELS[langKey] || toTitleCase(language) || "Text";
   const dotColor = LANG_COLORS[langKey] || (theme === "dark" ? "#888" : "#aaa");
   const syntaxTheme = theme === "dark" ? oneDark : oneLight;
   const lineCount = children.trim().split("\n").length;
@@ -121,18 +126,18 @@ export default function CodeBlock({
             style={{ background: dotColor }}
           />
           {filename ? (
-            <span className="font-(--md-font-mono) text-[0.72rem] text-(--md-text-muted) truncate">
+            <span className="font-(family-name:--md-font-mono) text-[0.72rem] text-(--md-text-muted) truncate">
               {filename}
             </span>
           ) : (
-            <span className="font-(--md-font-mono) text-xs uppercase tracking-wider text-(--md-code-header-text)">
+            <span className="font-(family-name:--md-font-mono) text-xs tracking-wider text-(--md-code-header-text)">
               {label}
             </span>
           )}
         </div>
         <button
           className={
-            "flex items-center gap-[0.35em] px-[0.65em] py-[0.3em] border rounded-[5px] bg-transparent font-(--md-font-mono) text-[0.7rem] cursor-pointer whitespace-nowrap shrink-0 transition-all duration-200 " +
+            "flex items-center gap-[0.35em] px-[0.65em] py-[0.3em] border rounded-[5px] bg-transparent font-(family-name:--md-font-mono) text-[0.7rem] cursor-pointer whitespace-nowrap shrink-0 transition-all duration-200 " +
             (copied
               ? "text-green-500 border-green-500"
               : "border-(--md-border) text-(--md-code-header-text) hover:bg-(--md-code-copy-hover) hover:text-(--md-text) hover:border-(--md-text-muted)")
@@ -169,7 +174,7 @@ export default function CodeBlock({
           }}
           codeTagProps={{
             style: {
-              fontFamily: "var(--md-font-mono) !important", // ← 作用于 <code>
+              fontFamily: "var(--md-font-mono)",
             },
           }}
           lineNumberStyle={{

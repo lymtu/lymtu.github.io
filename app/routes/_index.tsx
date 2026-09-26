@@ -26,8 +26,8 @@ export default function Home({ loaderData }: Route.ComponentProps) {
   const { articleList, haveMore } = loaderData;
 
   return (
-    <div className="mx-auto w-full md:w-lg lg:w-2xl p-4">
-      <div className="h-screen py-6 grid grid-cols-1 grid-rows-[1fr_1fr_5rem] md:grid-cols-2 md:grid-rows-2 gap-x-50">
+    <div className="mx-auto w-full max-w-3xl p-4">
+      <div className="h-screen py-6 grid grid-cols-1 grid-rows-[1fr_1fr_5rem] md:grid-cols-2 md:grid-rows-2 gap-x-12">
         <div className="w-fit h-20 mx-auto mt-20 md:mt-60 mb-auto">
           <Typewriter />
         </div>

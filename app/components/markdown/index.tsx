@@ -66,7 +66,7 @@ export default function MarkdownViewer({
           /* ---------- 段落 & 文本 ---------- */
           p({ node, children, ...props }) {
             return (
-              <p className="mb-[1.25em] indent-2" {...props}>
+              <p className="mb-[1.25em] indent-[2em]" {...props}>
                 {children}
               </p>
             );
@@ -139,7 +139,7 @@ export default function MarkdownViewer({
 
             return (
               <code
-                className="font-(--md-font-mono) text-[0.84em] px-[0.45em] py-[0.15em] rounded bg-(--md-inline-code-bg) text-(--md-inline-code-text) wrap-break-word"
+                className="font-(family-name:--md-font-mono) text-[0.84em] px-[0.45em] py-[0.15em] rounded bg-(--md-inline-code-bg) text-(--md-inline-code-text) wrap-break-word"
                 {...props}
               >
                 {children}
@@ -165,26 +165,34 @@ export default function MarkdownViewer({
           },
 
           /* ---------- 列表 ---------- */
-          ul({ node, children, ...props }) {
+          ul({ node, className, children, ...props }) {
             return (
-              <ul className="pl-[1.6em] mb-[1.25em]" {...props}>
+              <ul
+                className={`list-disc pl-[1.6em] mb-[1.25em] marker:text-(--md-text-muted) marker:text-[0.95em] marker:font-sans ${className ?? ""}`}
+                {...props}
+              >
                 {children}
               </ul>
             );
           },
 
-          ol({ node, children, ...props }) {
+          ol({ node, className, children, ...props }) {
             return (
-              <ol className="pl-[1.6em] mb-[1.25em]" {...props}>
+              <ol
+                className={`list-decimal pl-[2.2em] mb-[1.25em] marker:text-(--md-accent) marker:text-[0.9em] marker:font-sans ${className ?? ""}`}
+                {...props}
+              >
                 {children}
               </ol>
             );
           },
 
-          li({ node, children, ...props }) {
+          li({ node, className, children, ...props }) {
+            /* GFM 任务列表会注入 task-list-item，需去掉项目符号 */
+            const isTask = String(className).includes("task-list-item");
             return (
               <li
-                className="mb-[0.35em] [&>ul]:mt-[0.35em] [&>ol]:mt-[0.35em] [&>ul]:mb-0 [&>ol]:mb-0"
+                className={`${className ?? ""} ${isTask ? "list-none" : "marker:text-[0.95em]"} mb-[0.35em] [&>ul]:mt-[0.35em] [&>ol]:mt-[0.35em] [&>ul]:mb-0 [&>ol]:mb-0`}
                 {...props}
               >
                 {children}

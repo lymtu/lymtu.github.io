@@ -8,10 +8,31 @@
     "PingFang SC", "Helvetica Neue", Helvetica, Arial, "Microsoft YaHei",
     sans-serif;
   --font-hand: "Aa今日花晴 春懒猫困", var(--font-sans);
+  --font-mono:
+    "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular, Menlo,
+    Consolas, "Liberation Mono", monospace;
 }
 
 * {
   font-family: var(--font-hand);
+}
+
+/* Markdown 内的代码不跟随全局手写体；
+   后代选择器优先级高于上面的 *，保证高亮 token 也保持等宽字体 */
+.md-body code,
+.md-body pre,
+.md-body kbd,
+.md-body samp,
+.md-body tt {
+  font-family: var(--font-mono);
+}
+
+.md-body code *,
+.md-body pre *,
+.md-body kbd *,
+.md-body samp *,
+.md-body tt * {
+  font-family: inherit;
 }
 
 @custom-variant dark (&:where(.dark, .dark *));
@@ -19,7 +40,7 @@
 /* ========== Markdown 主题色板 ========== */
 :root {
   --md-font-heading: "Playfair Display", "Noto Serif SC", serif;
-  --md-font-mono: "JetBrains Mono", "Fira Code", "Menlo", monospace;
+  --md-font-mono: var(--font-mono);
   --md-max-width: 740px;
   --md-radius: 8px;
   --md-transition: 0.25s ease;
