@@ -15,31 +15,30 @@ const filesInfo = (await fs
   .then((files) => files.filter((fileName) => fileName.endsWith(".md")))
   .then((files) =>
     Promise.all(
-      files.map(async (fileName, index) => {
+      files.map(async (fileName) => {
         const filePath = path.join(MD_DIR_PATH, fileName);
         const [meta, content] = (await fs.readFile(filePath, "utf-8")).split(
           "=== meta ===",
         );
-        const metaInfo = Yaml.parse(meta) as Partial<{
+        const metaInfo = Yaml.parse(meta) as {
           title: string;
           description: string;
-          createdAt: string;
-          updatedAt: string;
-        }>;
+          createdAt: number;
+          updatedAt: number | null;
+          slug: string;
+        };
+
         if (!metaInfo) {
           throw new Error(`metaInfo is not defined in ${fileName}`);
         }
 
-        const title = metaInfo?.title || fileName;
-
-        const createdAt = Number(metaInfo?.createdAt);
-        const updatedAt = Number(metaInfo?.updatedAt) || null;
-
         return {
-          title,
+          ...metaInfo,
+          title: metaInfo.title || fileName,
           description: metaInfo?.description || "",
-          createdAt,
-          updatedAt: updatedAt ? timeTransformer(updatedAt) : null,
+          updatedAt: metaInfo.updatedAt
+            ? timeTransformer(metaInfo.updatedAt)
+            : null,
           content,
         };
       }),
@@ -49,7 +48,7 @@ const filesInfo = (await fs
     articles
       .sort((a, b) => b.createdAt - a.createdAt)
       .map((article, index) => {
-        cache[article.title] = index;
+        cache[article.slug] = index;
         return {
           ...article,
           createdAt: timeTransformer(article.createdAt),

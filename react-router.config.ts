@@ -12,7 +12,7 @@ export default {
       "/",
       "/about",
       "/articles",
-      ...articles.map((article) => `/articles/${article.title}`),
+      ...articles.map((article) => `/articles/${article.slug}`),
     ];
   },
 } satisfies Config;

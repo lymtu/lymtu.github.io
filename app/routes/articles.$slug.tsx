@@ -1,12 +1,11 @@
 import { getArticle } from "~/lib/utils/data";
-import type { Route } from "./+types/articles.$title";
-import { timeTransformer } from "~/lib/utils/timeTransformer";
+import type { Route } from "./+types/articles.$slug";
 import MarkdownViewer from "~/components/markdown";
 import { MarkdownToc } from "~/components/markdown/Toc";
 import { Comments } from "~/components/comments";
 
 export function loader({ params }: Route.LoaderArgs) {
-  const article = getArticle(params.title);
+  const article = getArticle(params.slug);
   return article;
 }
 

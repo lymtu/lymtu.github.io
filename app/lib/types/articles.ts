@@ -4,4 +4,5 @@ export type Article = {
   createdAt: string;
   updatedAt: string | null;
   content: string;
+  slug: string;
 };

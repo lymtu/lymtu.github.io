@@ -1,5 +1,4 @@
 import { type Article } from "~/lib/types/articles";
-import { timeTransformer } from "~/lib/utils/timeTransformer";
 
 import { NavLink } from "react-router";
 
@@ -16,8 +15,8 @@ export const AtricleList = function ({
         articles.map((article) => {
           return (
             <NavLink
-              key={article.title}
-              to={`/articles/${article.title}`}
+              key={article.slug}
+              to={`/articles/${article.slug}`}
               className={({ isActive }) =>
                 "shadow-black/20 dark:shadow-white/50 py-1 px-2 transition-shadow rounded cursor-pointer " +
                 (isActive
