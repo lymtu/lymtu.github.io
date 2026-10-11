@@ -6,6 +6,8 @@ import remarkCodeMeta from "./remark-code-meta";
 import ReactMarkdown from "react-markdown";
 import CodeBlock from "./CodeBlock";
 
+import "./style.css";
+
 export type ThemeMode = "light" | "dark";
 
 interface MarkdownViewerProps {
@@ -43,14 +45,12 @@ function headingComponent(level: 1 | 2 | 3 | 4 | 5 | 6) {
 export default function MarkdownViewer({
   content,
   className = "",
-  style,
 }: MarkdownViewerProps) {
   const { currentTheme: theme } = useTheme();
 
   return (
     <div
-      className={`md-body max-w-(--md-max-width) py-8 pb-16 text-[1.25rem] leading-[1.8] text-(--md-text) antialiased *:first:mt-0.5 ${className}`}
-      style={style}
+      className={`md-body max-w-(--md-max-width) py-8 pb-16 leading-[1.8] text-(--md-text) antialiased *:first:mt-0.5 ${className}`}
     >
       <ReactMarkdown
         remarkPlugins={[remarkGfm, remarkCodeMeta]}
@@ -81,7 +81,11 @@ export default function MarkdownViewer({
           },
 
           em({ node, children, ...props }) {
-            return <em className="italic" {...props}>{children}</em>;
+            return (
+              <em className="italic" {...props}>
+                {children}
+              </em>
+            );
           },
 
           del({ node, children, ...props }) {
@@ -139,7 +143,7 @@ export default function MarkdownViewer({
 
             return (
               <code
-                className="font-(family-name:--md-font-mono) text-[0.84em] px-[0.45em] py-[0.15em] rounded bg-(--md-inline-code-bg) text-(--md-inline-code-text) wrap-break-word"
+                className="font-(family-name:--md-font-mono) px-[0.45em] py-[0.15em] rounded bg-(--md-inline-code-bg) text-(--md-inline-code-text) wrap-break-word"
                 {...props}
               >
                 {children}
@@ -242,7 +246,7 @@ export default function MarkdownViewer({
             return (
               <div className="overflow-x-auto my-[1.5em] rounded-lg border border-(--md-border)">
                 <table
-                  className="w-full border-collapse text-[0.9rem]"
+                  className="w-full border-collapse"
                   {...props}
                 >
                   {children}
@@ -287,7 +291,10 @@ export default function MarkdownViewer({
           /* ---------- 脚注引用 ---------- */
           sup({ node, children, ...props }) {
             return (
-              <sup className="[&>a]:font-semibold [&>a]:text-[0.75em]" {...props}>
+              <sup
+                className="[&>a]:font-semibold [&>a]:text-[0.82rem]"
+                {...props}
+              >
                 {children}
               </sup>
             );
