@@ -1,6 +1,6 @@
-slug: 0e8a5a5ba222d561
-title: [modbus rtu]PLC程序改造
-description:
+slug: '0e8a5a5ba222d561'
+title: '[modbus rtu]PLC程序改造'
+description: ''
 createdAt: 1793365246496
 updatedAt: null
 
@@ -99,4 +99,3 @@ Modbus RTU是串口连接，依赖物理链路，听老板介绍是，好像是�
 这篇文章希望对想要快速入门modbus rtu的开发者有所参考，而不是被搜索引擎推荐的专业教程吓到。
 
 未来，程序员估计会去硬件通信领域分一杯羹，所以多了解点底层通讯信息对大家都有好处。虽然我是被逼的。
-

@@ -25,9 +25,9 @@ try {
     .slice(0, 16);
   await fs.writeFile(
     filePath,
-    `slug: ${hash}
-title: ${fileName}
-description: 
+    `slug: '${hash}'
+title: '${fileName}'
+description: ''
 createdAt: ${timestamp}
 updatedAt: null
 
