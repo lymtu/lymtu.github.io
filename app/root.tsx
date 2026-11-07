@@ -18,6 +18,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="msvalidate.01" content="1D0847CA711A19AE11FEE8645394F694" />
         <Meta />
         <Links />
         <script
